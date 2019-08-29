@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HockeyPlanner2019.Data;
 using HockeyPlanner2019.Models.DataModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace HockeyPlanner2019.Controllers.PeopleControllers
 {
@@ -22,7 +23,11 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
         // GET: People
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Person.Include(p => p.Club).Include(p => p.Company).Include(p => p.PersonType);
+            var applicationDbContext = _context.Person
+                .Include(p => p.Club)
+                .Include(p => p.Company)
+                .Include(p => p.PersonType)
+                .Include(p=>p.IdentityUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -38,6 +43,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
                 .Include(p => p.Club)
                 .Include(p => p.Company)
                 .Include(p => p.PersonType)
+                .Include(p => p.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {
@@ -53,6 +59,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
             ViewData["ClubId"] = new SelectList(_context.Set<Club>(), "Id", "ClubName");
             ViewData["CompanyId"] = new SelectList(_context.Set<Company>(), "Id", "ComanyName");
             ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "Id", "PersonTypeName");
+            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Email");
             return View();
         }
 
@@ -61,7 +68,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,StreetAddress,ZipCode,City,Country,Ssn,PhoneNumber1,PhoneNumber2,Email,PersonTypeId,CompanyId,ClubId,SwishNumber,BankAccount,BankName")] Person person)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,StreetAddress,ZipCode,City,Country,Ssn,PhoneNumber1,PhoneNumber2,Email,PersonTypeId,CompanyId,ClubId,SwishNumber,BankAccount,BankName,IdentityUserId")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -72,6 +79,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
             ViewData["ClubId"] = new SelectList(_context.Set<Club>(), "Id", "ClubName", person.ClubId);
             ViewData["CompanyId"] = new SelectList(_context.Set<Company>(), "Id", "CompanyName", person.CompanyId);
             ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "Id", "PersonTypeName", person.PersonTypeId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Email", person.IdentityUserId);
             return View(person);
         }
 
@@ -91,6 +99,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
             ViewData["ClubId"] = new SelectList(_context.Set<Club>(), "Id", "ClubName", person.ClubId);
             ViewData["CompanyId"] = new SelectList(_context.Set<Company>(), "Id", "CompanyName", person.CompanyId);
             ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "Id", "PersonTypeName", person.PersonTypeId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Email", person.IdentityUserId);
             return View(person);
         }
 
@@ -99,7 +108,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,StreetAddress,ZipCode,City,Country,Ssn,PhoneNumber1,PhoneNumber2,Email,PersonTypeId,CompanyId,ClubId,SwishNumber,BankAccount,BankName")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,StreetAddress,ZipCode,City,Country,Ssn,PhoneNumber1,PhoneNumber2,Email,PersonTypeId,CompanyId,ClubId,SwishNumber,BankAccount,BankName,IdentityUserId")] Person person)
         {
             if (id != person.Id)
             {
@@ -129,6 +138,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
             ViewData["ClubId"] = new SelectList(_context.Set<Club>(), "Id", "ClubName", person.ClubId);
             ViewData["CompanyId"] = new SelectList(_context.Set<Company>(), "Id", "CompanyName", person.CompanyId);
             ViewData["PersonTypeId"] = new SelectList(_context.Set<PersonType>(), "Id", "PersonTypeName", person.PersonTypeId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Email", person.IdentityUserId);
             return View(person);
         }
 
@@ -144,6 +154,7 @@ namespace HockeyPlanner2019.Controllers.PeopleControllers
                 .Include(p => p.Club)
                 .Include(p => p.Company)
                 .Include(p => p.PersonType)
+                .Include(p => p.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {

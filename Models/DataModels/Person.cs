@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -94,5 +95,13 @@ namespace HockeyPlanner2019.Models.DataModels
 
         [Display(Name = "Swish# and Bank#")]
         public string PaymentDetails { get { return string.Format("{0} {1}", SwishNumber, BankAccount); } }
+
+
+        // IdentityUser for setting access !
+        [Display(Name = "Identity User")]
+        public string IdentityUserId { get; set; }
+        [Display(Name = "Identity User")]
+        [ForeignKey("IdentityUserId")]
+        public IdentityUser IdentityUser { get; set; }
     }
 }

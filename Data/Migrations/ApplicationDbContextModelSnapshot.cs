@@ -172,6 +172,95 @@ namespace HockeyPlanner2019.Data.Migrations
                     b.ToTable("GameCategory");
                 });
 
+            modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.GameReceipt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AmountPaidHD1");
+
+                    b.Property<int>("AmountPaidHD2");
+
+                    b.Property<int>("AmountPaidLD1");
+
+                    b.Property<int>("AmountPaidLD2");
+
+                    b.Property<int?>("GameId");
+
+                    b.Property<int>("GameTotalKost");
+
+                    b.Property<int>("HD1Alowens");
+
+                    b.Property<int>("HD1Fee");
+
+                    b.Property<int>("HD1LateGameKost");
+
+                    b.Property<int>("HD1TotalFee");
+
+                    b.Property<int>("HD1TravelKost");
+
+                    b.Property<int>("HD2Alowens");
+
+                    b.Property<int>("HD2Fee");
+
+                    b.Property<int>("HD2LateGameKost");
+
+                    b.Property<int>("HD2TotalFee");
+
+                    b.Property<int>("HD2TravelKost");
+
+                    b.Property<int>("LD1Alowens");
+
+                    b.Property<int>("LD1Fee");
+
+                    b.Property<int>("LD1LateGameKost");
+
+                    b.Property<int>("LD1TotalFee");
+
+                    b.Property<int>("LD1TravelKost");
+
+                    b.Property<int>("LD2Alowens");
+
+                    b.Property<int>("LD2Fee");
+
+                    b.Property<int>("LD2LateGameKost");
+
+                    b.Property<int>("LD2TotalFee");
+
+                    b.Property<int>("LD2TravelKost");
+
+                    b.Property<int?>("PersonId");
+
+                    b.Property<int?>("PersonId1");
+
+                    b.Property<int?>("PersonId2");
+
+                    b.Property<int?>("PersonId3");
+
+                    b.Property<int?>("ReceiptStatusId");
+
+                    b.Property<int>("TotalAmountPaid");
+
+                    b.Property<int>("TotalAmountToPay");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("PersonId1");
+
+                    b.HasIndex("PersonId2");
+
+                    b.HasIndex("PersonId3");
+
+                    b.HasIndex("ReceiptStatusId");
+
+                    b.ToTable("GameReceipt");
+                });
+
             modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.GameStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -207,6 +296,8 @@ namespace HockeyPlanner2019.Data.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<string>("IdentityUserId");
+
                     b.Property<string>("LastName");
 
                     b.Property<int?>("PersonTypeId");
@@ -229,6 +320,8 @@ namespace HockeyPlanner2019.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("IdentityUserId");
+
                     b.HasIndex("PersonTypeId");
 
                     b.ToTable("Person");
@@ -245,6 +338,69 @@ namespace HockeyPlanner2019.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PersonType");
+                });
+
+            modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.ReceiptStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReceiptStatusName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReceiptStatus");
+                });
+
+            modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ServiceName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Service");
+                });
+
+            modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.ServiceReceipt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CompanyId");
+
+                    b.Property<int?>("PersonId");
+
+                    b.Property<double>("Price");
+
+                    b.Property<double>("Quantity");
+
+                    b.Property<int?>("ReceiptStatusId");
+
+                    b.Property<int?>("ServiceId");
+
+                    b.Property<double>("TotalAmountPaid");
+
+                    b.Property<double>("TotalAmountToPay");
+
+                    b.Property<double>("TotalPayment");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("ReceiptStatusId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("ServiceReceipt");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -451,6 +607,33 @@ namespace HockeyPlanner2019.Data.Migrations
                         .HasForeignKey("PersonId3");
                 });
 
+            modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.GameReceipt", b =>
+                {
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Person", "HD1")
+                        .WithMany()
+                        .HasForeignKey("PersonId");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Person", "HD2")
+                        .WithMany()
+                        .HasForeignKey("PersonId1");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Person", "LD1")
+                        .WithMany()
+                        .HasForeignKey("PersonId2");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Person", "LD2")
+                        .WithMany()
+                        .HasForeignKey("PersonId3");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.ReceiptStatus", "ReceiptStatus")
+                        .WithMany()
+                        .HasForeignKey("ReceiptStatusId");
+                });
+
             modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.Person", b =>
                 {
                     b.HasOne("HockeyPlanner2019.Models.DataModels.Club", "Club")
@@ -461,9 +644,32 @@ namespace HockeyPlanner2019.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
+
                     b.HasOne("HockeyPlanner2019.Models.DataModels.PersonType", "PersonType")
                         .WithMany()
                         .HasForeignKey("PersonTypeId");
+                });
+
+            modelBuilder.Entity("HockeyPlanner2019.Models.DataModels.ServiceReceipt", b =>
+                {
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Person", "ServiceProvider")
+                        .WithMany()
+                        .HasForeignKey("PersonId");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.ReceiptStatus", "ReceiptStatus")
+                        .WithMany()
+                        .HasForeignKey("ReceiptStatusId");
+
+                    b.HasOne("HockeyPlanner2019.Models.DataModels.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using HockeyPlanner2019.Models.DataModels;
+using HockeyPlanner2019.Models.DataModels.TSMModels.DataModels;
 
 namespace HockeyPlanner2019.Data
 {
@@ -21,5 +22,14 @@ namespace HockeyPlanner2019.Data
         public DbSet<HockeyPlanner2019.Models.DataModels.Game> Game { get; set; }
         public DbSet<HockeyPlanner2019.Models.DataModels.GameCategory> GameCategory { get; set; }
         public DbSet<HockeyPlanner2019.Models.DataModels.GameStatus> GameStatus { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.GameReceipt> GameReceipt { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.ReceiptStatus> ReceiptStatus { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.ServiceReceipt> ServiceReceipt { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.Service> Service { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.TSMClub> TSMClub { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.City> City { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.Country> Country { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.Covenant> Covenant { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.District> District { get; set; }
     }
 }
