@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using HockeyPlanner2019.Models.DataModels;
 using HockeyPlanner2019.Models.DataModels.TSMModels.DataModels;
+using HockeyPlanner2019.Models.DataModels.AccountingModels.DataModels;
 
 namespace HockeyPlanner2019.Data
 {
@@ -31,5 +32,7 @@ namespace HockeyPlanner2019.Data
         public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.Country> Country { get; set; }
         public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.Covenant> Covenant { get; set; }
         public DbSet<HockeyPlanner2019.Models.DataModels.TSMModels.DataModels.District> District { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.AccountingModels.DataModels.RefFee> RefFee { get; set; }
+        public DbSet<HockeyPlanner2019.Models.DataModels.AccountingModels.DataModels.FeeCategory> FeeCategory { get; set; }
     }
 }
